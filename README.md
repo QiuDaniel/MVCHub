@@ -1,6 +1,8 @@
 # MVCHub
 App For GitHub
-先介绍一下项目文件里的目录大致情况
+
+先介绍一下项目文件里的目录大致情况:
+
 ├── MVCHub
 │   ├── Models：数据类
 │   ├── Views：视图类
