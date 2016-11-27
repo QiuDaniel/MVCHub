@@ -1,0 +1,169 @@
+//
+//  MVCHub-Prefix.pch
+//  MVCHub
+//
+//  Created by daniel on 2016/10/14.
+//  Copyright © 2016年 Daniel. All rights reserved.
+//
+
+#ifndef MVCHub_Prefix_pch
+#define MVCHub_Prefix_pch
+
+#ifdef __OBJC__
+
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <OctoKit/OctoKit.h>
+#import <objc/runtime.h>
+#import <AFNetworking/AFNetworking.h>
+#import "UIView+Common.h"
+#import "NSObject+Common.h"
+#import "NSObject+ObjectMap.h"
+#import "NSString+Common.h"
+#import "UIImage+Common.h"
+#import "UIImage+Octicons.h"
+#import "UIButton+Common.h"
+#import "UIButton+Bootstrap.h"
+#import "UILabel+Common.h"
+#import "NSString+Octicons.h"
+#import "UIColor+expanded.h"
+#import "UIView+Borders.h"
+#import <Masonry/Masonry.h>
+#import "MBProgressHUD.h"
+#import "IQKeyboardManager.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
+#import <BlocksKit/BlocksKit+UIKit.h>
+#import <YYKit/YYKit.h>
+#import "YYCache+Additions.h"
+#import <Reachability.h>
+#import "FMDB.h"
+#import "FMDatabaseQueue+MVCHelper.h"
+#import "SSKeychain+MVCUtil.h"
+#import "GPUImage.h"
+#import "MVCHubAPIManager.h"
+#import "MVCUtil.h"
+#import "MVCMemoryCache.h"
+#import "OCTUser+MVCPersistence.h"
+#import "OCTEvent+MVCPersistence.h"
+#import "OCTRef+Additions.h"
+#import "OCTRef+MVCUtil.h"
+#import "OCTEvent+MVCAttributedString.h"
+#import "OCTRepository+MVCPersistence.h"
+#import "NSMutableAttributedString+Events.h"
+#import "NSURL+MVCLinkType.h"
+#import "MJRefresh.h"
+#import "Ono.h"
+#import "AppDelegate.h"
+#import "WebViewJavascriptBridge.h"
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
+
+#endif
+
+//App Info
+
+#define kVersionKey_MVCHub @"ApplicationVersionKey"
+
+#define MVC_APP_NAME ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"])
+#define kVersion_MVCHub [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
+#define kVersionBuild_MVCHub [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+
+// FMDB
+#define MVC_FMDB_PATH [NSString stringWithFormat:@"%@/%@.db", MVC_DOCUMENT_DIRECTORY, MVC_APP_NAME]
+#define DebugLogLastError(db) NSLog(@"lastError: %@, lastErrorCode: %d, lastErrorMessage: %@", [db lastError], [db lastErrorCode], [db lastErrorMessage])
+
+// Notification
+#define MVCStarredReposDidChangeNotification @"MVCStarredReposDidChangeNotification"
+
+// Persistence Directory
+#define MVC_DOCUMENT_DIRECTORY NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject
+
+// AppDelegate
+
+#define MVCSharedAppDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
+
+// SSKeychain
+
+#define kServiceName @"com.daniel.MVCHub"
+#define kRawLogin @"RawLogin"
+#define kPassword @"Password"
+#define kAccessToken @"AccessToken"
+
+/// Client Info 借用MRCReactiveCocoa的
+
+#define kGitHub_CLIENT_ID     @"ef5834ea86b53233dc41"
+#define kGitHub_CLIENT_SECRET @"6eea860464609635567d001b1744a052f8568a99"
+
+//Repository
+
+#define kMVCReadmeCSSStyle @"<style type=\"text/css\">body { font-family: \"Helvetica Neue\", Helvetica, \"Segoe UI\", Arial, freesans, sans-serif; }</style>"
+
+// UMengSocial
+
+#define kUMengAPPKey @"553e402e67e58ed9f4004045"
+#define kUMengShareURL @"http://www.umeng.com/social"
+
+// Wechat
+#define kWXAPPID     @"wx738f343b7a8d1bdb"
+#define kWXAPPSecret @"a09ec93457abc134f769e37da4d8ad21"
+
+// MVCHub Repository
+#define kMVCHub_Owner_Login @"QiuDaniel"
+
+//常用变量
+#define DebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
+
+#define DebugLogError(error) DebugLog(@"Error:%@", error)
+
+#define kTipAlert(_S_, ...)     [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:(_S_), ##__VA_ARGS__] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show]
+
+#define kKeyWindow [UIApplication sharedApplication].keyWindow
+
+#define kHigher_iOS_6_1 (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
+#define kHigher_iOS_6_1_DIS(_X_) ([[NSNumber numberWithBool:kHigher_iOS_6_1] intValue] * _X_)
+#define kNotHigher_iOS_6_1_DIS(_X_) (-([[NSNumber numberWithBool:kHigher_iOS_6_1] intValue]-1) * _X_)
+
+#define kDevice_Is_iPhone4 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_Is_iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_Is_iPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+#define kDevice_Is_iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
+
+#define kScreen_Bounds [UIScreen mainScreen].bounds
+#define kScreen_Height [UIScreen mainScreen].bounds.size.height
+#define kScreen_Width [UIScreen mainScreen].bounds.size.width
+#define kPaddingLeftWidth 15.0
+#define kLoginPaddingLeftWidth 18.0
+
+#define kBadgeTipStr @"badgeTip"
+#define kBackButtonFontSize 16
+#define kNavTitleFontSize 18
+#define kLeftImageSize CGSizeMake(25, 25)
+
+#define kMBProgressHUD_Lable_Text @"Loading..."
+#define kAlert_Title @"Tips"
+#define kEmptyPlaceHolder @"Not Set"
+
+#define kMVC_1PX_WIDTH (1 / [UIScreen mainScreen].scale)
+
+
+#define kColorTableBG [UIColor colorWithHexString:@"0xfafafa"]
+
+#define kScaleFrom_iPhone5_Desgin(_X_) (_X_ * (kScreen_Width/320))
+
+
+
+
+#define MVCWeak(var, weakVar) __weak __typeof(&*var) weakVar = var
+#define MVCStrong_DoNotCheckNil(weakVar, _var) __typeof(&*weakVar) _var = weakVar
+#define MVCStrong(weakVar, _var) MVCStrong_DoNotCheckNil(weakVar, _var); if (!_var) return;
+
+#define MVCWeak_(var) MVCWeak(var, weak_##var);
+#define MVCStrong_(var) MVCStrong(weak_##var, _##var);
+
+/** defines a weak `self` named `__weakSelf` */
+#define MVCWeakSelf      MVCWeak(self, __weakSelf);
+/** defines a strong `self` named `_self` from `__weakSelf` */
+#define MVCStrongSelf    MVCStrong(__weakSelf, _self);
+
+#endif /* MVCHub_Prefix_pch */
