@@ -78,7 +78,7 @@ static NSString *const RepoSettingsOwnerCell = @"RepoSettingsOwnerCell";
             }];
         }
     } else if (indexPath.section == 2) {
-#warning 到最后再设置友盟分享。
+
         UMSocialUrlResource *urlResource = [[UMSocialUrlResource alloc] initWithSnsResourceType:UMSocialUrlResourceTypeImage url:self.repository.ownerAvatarURL.absoluteString];
         NSString *title = self.repository.name;
         NSString *shareText = self.repository.repoDescription;
@@ -88,7 +88,8 @@ static NSString *const RepoSettingsOwnerCell = @"RepoSettingsOwnerCell";
         [UMSocialData defaultData].extConfig.wechatSessionData.urlResource = urlResource;
         [UMSocialData defaultData].extConfig.wechatSessionData.title = title;
         [UMSocialData defaultData].extConfig.wechatSessionData.shareText = shareText;
-        [UMSocialData defaultData].extConfig.wechatSessionData.wxMessageType = UMSocialWXMessageTypeApp;
+        [UMSocialData defaultData].extConfig.wechatSessionData.url = url;
+        [UMSocialData defaultData].extConfig.wechatSessionData.wxMessageType = UMSocialWXMessageTypeWeb;
         
         // Wechat Timeline
         [UMSocialData defaultData].extConfig.wechatTimelineData.urlResource = urlResource;
@@ -103,7 +104,7 @@ static NSString *const RepoSettingsOwnerCell = @"RepoSettingsOwnerCell";
         [UMSocialData defaultData].extConfig.wechatFavoriteData.url = url;
         
         NSArray *snsNames = @[ UMShareToWechatSession, UMShareToWechatTimeline, UMShareToWechatFavorite];
-        [UMSocialSnsService presentSnsIconSheetView:self appKey:nil shareText:nil shareImage:nil shareToSnsNames:snsNames delegate:self];
+        [UMSocialSnsService presentSnsIconSheetView:self appKey:kUMengAPPKey shareText:@"来自CatHub的分享" shareImage:nil shareToSnsNames:snsNames delegate:self];
     }
 }
 

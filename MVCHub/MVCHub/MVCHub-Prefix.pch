@@ -101,12 +101,12 @@
 
 // UMengSocial
 
-#define kUMengAPPKey @"553e402e67e58ed9f4004045"
+#define kUMengAPPKey @"583c22a88630f51fe400006d"
 #define kUMengShareURL @"http://www.umeng.com/social"
 
 // Wechat
-#define kWXAPPID     @"wx738f343b7a8d1bdb"
-#define kWXAPPSecret @"a09ec93457abc134f769e37da4d8ad21"
+#define kWXAPPID     @"wx0d47256a7c3436a8"
+#define kWXAPPSecret @"616e566a8f7a73e9beafbfb4486ca58a"
 
 // MVCHub Repository
 #define kMVCHub_Owner_Login @"QiuDaniel"
