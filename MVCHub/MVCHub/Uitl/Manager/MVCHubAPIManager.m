@@ -11,7 +11,6 @@
 
 @interface MVCHubAPIManager ()
 
-@property (nonatomic, strong) OCTClient *client;
 
 @end
 
@@ -23,6 +22,7 @@
     dispatch_once(&onceToken, ^{
         sharedManager = [[self alloc] init];
     });
+    
     return sharedManager;
 }
 
@@ -40,6 +40,7 @@
 
 #pragma mark - Follower & Following
 - (void)requestUserListWithUser:(OCTUser *)user userListType:(UserListModelType)type location:(NSString *)location language:(NSString *)language page:(NSUInteger)page perPage:(NSUInteger)perPage andBlock:(void (^)(NSArray *data, NSError *error))block {
+    
     NSArray *preUsers = type == UserListModelTypeFollowing ? [OCTUser mvc_fetchFollowingWithPage:1 perPage:perPage] : [OCTUser mvc_fetchFollowersWithPage:1 perPage:perPage];
     NSUInteger (^offsetForPage)(NSUInteger) = ^(NSUInteger page) {
         return (page - 1) * perPage;

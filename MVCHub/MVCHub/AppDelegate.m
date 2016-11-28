@@ -34,7 +34,12 @@
     [self customizeInterface];
     
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    [self setupLoginViewController];
+    
+    if ([Login isLogin]) {
+        [self setupTabViewController];
+    } else {
+        [self setupLoginViewController];
+    }
     
     // Save the application version info
     [[NSUserDefaults standardUserDefaults] setValue:kVersion_MVCHub forKey:kVersionKey_MVCHub];

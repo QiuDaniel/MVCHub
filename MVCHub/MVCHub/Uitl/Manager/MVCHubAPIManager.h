@@ -12,6 +12,7 @@
 
 @interface MVCHubAPIManager : NSObject
 
+@property (nonatomic, strong) OCTClient *client;
 
 + (instancetype)sharedManager;
 

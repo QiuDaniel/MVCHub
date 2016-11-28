@@ -51,8 +51,7 @@
 - (void)tapAvatarButton:(UIButton *)btn {
     OCTEvent *tempEvent = (OCTEvent *)self.newsArr[btn.tag - 100];
     NSURL *URL = [NSURL mvc_userLinkWithLogin:tempEvent.actorLogin];
-//    NSString *title = [[[[URL.absoluteString componentsSeparatedByString:@"?"].lastObject componentsSeparatedByString:@"="].lastObject stringByReplacingOccurrencesOfString:@"-" withString:@" "] stringByReplacingOccurrencesOfString:@"@" withString:@"#"];
-//    DebugLog(@"didClickLinkCommand: %@, title: %@", URL, title);
+
     UserDetailViewController *userDetialVC = [[UserDetailViewController alloc] initWithParams:URL.mvc_dictionary];
     [self.navigationController pushViewController:userDetialVC animated:YES];
     

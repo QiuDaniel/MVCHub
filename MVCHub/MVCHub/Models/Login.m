@@ -8,7 +8,6 @@
 
 #import "Login.h"
 
-#define kLoginStatus @"login_status"
 #define kLoginAuthenticatedClient @"authenticated_client"
 
 static OCTUser *curLoginUser;
@@ -24,28 +23,30 @@ static OCTUser *curLoginUser;
 }
 
 + (BOOL)isLogin {
-    NSNumber *loginStatus = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginStatus];
-    if (loginStatus.boolValue && [Login curLoginUser]) {
-        OCTUser *user = [Login curLoginUser];
-        if (user.rawLogin == nil) {
+    if ([SSKeychain rawLogin].isExist && [SSKeychain accessToken].isExist) {
+        OCTUser *user = [OCTUser mvc_userWithRawLogin:[SSKeychain rawLogin] server:OCTServer.dotComServer];
+        OCTClient *authenticatedClient = [OCTClient authenticatedClientWithUser:user token:[SSKeychain accessToken]];
+        [MVCHubAPIManager sharedManager].client = authenticatedClient;
+        if (user.login == nil) {
             return NO;
         }
         return YES;
-    }else {
+        
+    } else {
         return NO;
     }
+
 }
 
 + (void)logIn:(OCTClient *)authenticatedClient {
     if (authenticatedClient) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:[NSNumber numberWithBool:YES] forKey:kLoginStatus];
-//        [defaults setObject:authenticatedClient forKey:kLoginAuthenticatedClient];
-        [[MVCMemoryCache sharedInstance] setObject:authenticatedClient.user forKey:@"currentUser"];
+        curLoginUser = authenticatedClient.user;
+        [defaults setObject:curLoginUser.name forKey:@"login"];
+        [[MVCMemoryCache sharedInstance] setObject:curLoginUser forKey:@"currentUser"];
         [[MVCMemoryCache sharedInstance] setObject:authenticatedClient forKey:kLoginAuthenticatedClient];
         [authenticatedClient.user mvc_saveOrUpdate];
         [authenticatedClient.user mvc_updateRawLogin]; // The only place to update rawLogin;
-        curLoginUser = authenticatedClient.user;
         [defaults synchronize];
     } else {
         [Login logOut];
@@ -55,7 +56,7 @@ static OCTUser *curLoginUser;
 + (void)logOut {
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSNumber numberWithBool:NO] forKey:kLoginStatus];
+    [defaults setObject:@"" forKey:@"login"];
     [defaults synchronize];
     [SSKeychain deleteAccessToken];
     [[MVCMemoryCache sharedInstance] removeObjectForKey:@"currentUser"];
@@ -63,8 +64,12 @@ static OCTUser *curLoginUser;
 
 + (OCTUser *)curLoginUser {
     if (!curLoginUser) {
-        OCTClient *client = [[MVCMemoryCache sharedInstance] objectForKey:kLoginAuthenticatedClient];
-        curLoginUser = client? client.user: nil;
+        NSString *login = [[NSUserDefaults standardUserDefaults] objectForKey:@"login"];
+        OCTUser *tempUser = [OCTUser modelWithDictionary:@{
+                                                       @"login":login
+                                                       } error:nil];
+        OCTUser *user = [OCTUser mvc_fetchUser:tempUser];
+        curLoginUser = user ?: nil;
     }
     return curLoginUser;
 }

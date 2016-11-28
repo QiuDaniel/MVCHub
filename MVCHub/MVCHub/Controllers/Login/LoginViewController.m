@@ -142,7 +142,6 @@
 }
 
 - (void)doLogin {
-    DebugLog(@"点击了登录");
     [self.view endEditing:YES];
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES].
         labelText = @"Logging in...";
