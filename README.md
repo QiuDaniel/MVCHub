@@ -58,6 +58,6 @@ RootTabViewController继承自第三方库[RDVTabBarController](https://github.c
 
 ####其他：
 - MVCHubAPIManager：基本上app的所有请求接口都放在了这里。对[octokit.objc](https://github.com/octokit/octokit.objc)提供的接口做了初步的封装，与服务器之间的数据交互格式用的都是json。
-
+- TODO：会根据[octokit.objc](https://github.com/octokit/octokit.objc)提供的接口完善其他的功能。
 ####License
 Coding is available under the MIT license. See the LICENSE file for more info.
