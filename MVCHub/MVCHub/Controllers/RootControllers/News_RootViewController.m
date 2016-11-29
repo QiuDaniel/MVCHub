@@ -21,11 +21,19 @@
 @property (nonatomic, strong) UITableView *newsTableView;
 @property (nonatomic, strong) NSMutableArray *newsArr;
 
-@property (nonatomic, strong) News *news;
-
 @end
 
 @implementation News_RootViewController
+
+#pragma mark - Init
+- (instancetype)initWithParams:(NSDictionary *)params {
+    self = [super initWithParams:params];
+    if (self) {
+        self.user = params[@"user"];
+        self.news.type = [params[@"type"] unsignedIntegerValue];
+    }
+    return self;
+}
 
 #pragma mark - LifeCycle
 - (void)viewDidLoad {
@@ -33,6 +41,7 @@
     self.title = self.news.title;
     self.view.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.newsTableView];
+    [self.newsArr addObjectsFromArray:[self fetchLocalData]];
     [self.newsTableView.mj_header beginRefreshing];
     [self judgeNetworkStatus];
 
@@ -166,16 +175,28 @@
     
 }
 
+- (NSArray *)fetchLocalData {
+    NSArray *events = nil;
+    if ([self.user.objectID isEqualToString:[OCTUser mvc_currentUserId]]) {
+        if (self.news.type == NewsViewTypeNews) {
+            events = [[OCTEvent mvc_fetchUserReceivedEvents].rac_sequence take:20].array;
+        } else if (self.news.type == NewsViewTypePublicActivity) {
+            events = [OCTEvent mvc_fetchUserPerformedEvents];
+        }
+    }
+    return events;
+}
+
 #pragma mark - Request API
 
 - (void)loadNewData {
     [self isLoading:RefreshingTypeHeader];
     NSUInteger page = 1;
     MVCWeakSelf
-    [[MVCHubAPIManager sharedManager] requestNewsForUser:[Login curLoginUser] newsType:NewsViewTypeNews page:page perPage:NewsPerPage andBlock:^(NSArray *data, NSError *error) {
+    [[MVCHubAPIManager sharedManager] requestNewsForUser:self.user newsType:self.news.type page:page perPage:NewsPerPage andBlock:^(NSArray *data, NSError *error) {
         [__weakSelf.newsTableView.mj_header endRefreshing];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self isLoading:RefreshingTypeHeader];
+            [__weakSelf isLoading:RefreshingTypeHeader];
         });
         if (data) {
             for (int i = 0; i < data.count; i++) {
@@ -185,7 +206,6 @@
             }
             [__weakSelf.newsTableView reloadData];
         }
-
         
     }];
 }
@@ -194,11 +214,11 @@
     [self isLoading:RefreshingTypeFooter];
     self.news.page++;
     MVCWeakSelf
-    [[MVCHubAPIManager sharedManager] requestNewsForUser:[Login curLoginUser] newsType:NewsViewTypeNews page:self.news.page perPage:NewsPerPage andBlock:^(NSArray *data, NSError *error) {
+    [[MVCHubAPIManager sharedManager] requestNewsForUser:self.user newsType:self.news.type page:self.news.page perPage:NewsPerPage andBlock:^(NSArray *data, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [__weakSelf.newsTableView.mj_footer endRefreshing];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self isLoading:RefreshingTypeFooter];
+                [__weakSelf isLoading:RefreshingTypeFooter];
             });
             if (data) {
                 if (data.count > 0) {

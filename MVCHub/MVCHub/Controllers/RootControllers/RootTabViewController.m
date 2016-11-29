@@ -14,6 +14,7 @@
 #import "RDVTabBarItem.h"
 #import "BaseNavigationController.h"
 #import "RKSwipeBetweenViewControllers.h"
+#import "Login.h"
 
 @interface RootTabViewController ()
 
@@ -35,7 +36,7 @@
 #pragma mark - Private_Method
 
 - (void)setupViewContrllers {
-    News_RootViewController *news = [[News_RootViewController alloc] init];
+    News_RootViewController *news = [[News_RootViewController alloc] initWithParams:@{ @"user":[Login curLoginUser], @"type":@(0)} ];
     BaseNavigationController *nav_news = [[BaseNavigationController alloc] initWithRootViewController:news];
     RKSwipeBetweenViewControllers *nav_repo = [RKSwipeBetweenViewControllers newSwipeBetweenViewControllers];
     [nav_repo.viewControllerArray addObjectsFromArray:@[

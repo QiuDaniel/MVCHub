@@ -10,6 +10,7 @@
 #import "ProfileAvatarHeaderView.h"
 #import "UserDetail.h"
 #import "SDWebImagePrefetcher.h"
+#import "PublicActivityViewController.h"
 
 
 @interface UserDetailViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -105,9 +106,11 @@
             
         } else if (indexPath.row == 2) {
             NSDictionary *params = @{
-                                     @"type":@(1),
-                                     @"user":self.user
+                                     @"user":self.user,
+                                     @"type":@(1)
                                      };
+            PublicActivityViewController *publicActivityVC = [[PublicActivityViewController alloc] initWithParams:params];
+            [self.navigationController pushViewController:publicActivityVC animated:YES];
         }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 2) {

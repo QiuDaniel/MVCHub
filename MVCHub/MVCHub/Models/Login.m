@@ -24,10 +24,10 @@ static OCTUser *curLoginUser;
 
 + (BOOL)isLogin {
     if ([SSKeychain rawLogin].isExist && [SSKeychain accessToken].isExist) {
-        OCTUser *user = [OCTUser mvc_userWithRawLogin:[SSKeychain rawLogin] server:OCTServer.dotComServer];
-        OCTClient *authenticatedClient = [OCTClient authenticatedClientWithUser:user token:[SSKeychain accessToken]];
+        curLoginUser = [OCTUser mvc_userWithRawLogin:[SSKeychain rawLogin] server:OCTServer.dotComServer];
+        OCTClient *authenticatedClient = [OCTClient authenticatedClientWithUser:curLoginUser token:[SSKeychain accessToken]];
         [MVCHubAPIManager sharedManager].client = authenticatedClient;
-        if (user.login == nil) {
+        if (curLoginUser.login == nil) {
             return NO;
         }
         return YES;
@@ -64,11 +64,7 @@ static OCTUser *curLoginUser;
 
 + (OCTUser *)curLoginUser {
     if (!curLoginUser) {
-        NSString *login = [[NSUserDefaults standardUserDefaults] objectForKey:@"login"];
-        OCTUser *tempUser = [OCTUser modelWithDictionary:@{
-                                                       @"login":login
-                                                       } error:nil];
-        OCTUser *user = [OCTUser mvc_fetchUser:tempUser];
+        OCTUser *user = [[MVCMemoryCache sharedInstance] objectForKey:@"currentUser"];
         curLoginUser = user ?: nil;
     }
     return curLoginUser;

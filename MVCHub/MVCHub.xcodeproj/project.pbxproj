@@ -123,6 +123,7 @@
 		1841B5021DB9F1E600EEA472 /* News.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841B5011DB9F1E600EEA472 /* News.m */; };
 		1841B5051DB9F79000EEA472 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841B5041DB9F79000EEA472 /* NewsTableViewCell.m */; };
 		1864601B1DCB7664009567BA /* RepoDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1864601A1DCB7664009567BA /* RepoDetail.m */; };
+		18960DF21DED2A0B005D0D06 /* PublicActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18960DF11DED2A0B005D0D06 /* PublicActivityViewController.m */; };
 		18BEBC881DB3C8F900A21CE4 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182091251DB202C7008BB594 /* ReactiveCocoa.framework */; };
 		18BEBC891DB3C8F900A21CE4 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 182091251DB202C7008BB594 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		18BEBC951DB3C90200A21CE4 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182091161DB202BF008BB594 /* Mantle.framework */; };
@@ -613,6 +614,8 @@
 		1841B5041DB9F79000EEA472 /* NewsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewCell.m; sourceTree = "<group>"; };
 		186460191DCB7664009567BA /* RepoDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepoDetail.h; sourceTree = "<group>"; };
 		1864601A1DCB7664009567BA /* RepoDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepoDetail.m; sourceTree = "<group>"; };
+		18960DF01DED2A0A005D0D06 /* PublicActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicActivityViewController.h; sourceTree = "<group>"; };
+		18960DF11DED2A0B005D0D06 /* PublicActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicActivityViewController.m; sourceTree = "<group>"; };
 		18C3BE5B1DCE19C0008FE88E /* OCTRef+MVCUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCTRef+MVCUtil.h"; sourceTree = "<group>"; };
 		18C3BE5C1DCE19C0008FE88E /* OCTRef+MVCUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCTRef+MVCUtil.m"; sourceTree = "<group>"; };
 		18C3BE691DCE1ECA008FE88E /* SelectBranchOrTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectBranchOrTagViewController.h; sourceTree = "<group>"; };
@@ -1301,6 +1304,8 @@
 		1841B4EF1DB6735A00EEA472 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				18960DF01DED2A0A005D0D06 /* PublicActivityViewController.h */,
+				18960DF11DED2A0B005D0D06 /* PublicActivityViewController.m */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -1907,6 +1912,7 @@
 				180283561DB085C0005BA674 /* UIView+Frame.m in Sources */,
 				18D963E51DE5F14A00D00A85 /* AboutViewController.m in Sources */,
 				180283481DB085C0005BA674 /* NSTimer+Common.m in Sources */,
+				18960DF21DED2A0B005D0D06 /* PublicActivityViewController.m in Sources */,
 				1802835D1DB09CEE005BA674 /* Input_OnlyText_Cell.m in Sources */,
 				18D963A81DDEA7D900D00A85 /* NSTimer+Addition.m in Sources */,
 				18D9639E1DDDF9D000D00A85 /* ExploreBannersView.m in Sources */,

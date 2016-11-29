@@ -142,7 +142,7 @@
 }
 
 #pragma mark - News (Received Events & Performed Events)
-- (void)requestNewsForUser:(OCTUser *)user newsType:(NewsViewType)type page:(NSUInteger)page perPage:(NSUInteger)perPage andBlock:(void (^)(NSArray *, NSError *))block {
+- (void)requestNewsForUser:(OCTUser *)user newsType:(NewsViewType)type page:(NSUInteger)page perPage:(NSUInteger)perPage andBlock:(void (^)(NSArray *data, NSError *error))block {
     NSUInteger (^offsetForPage)(NSUInteger) = ^(NSUInteger page) {
         return (page - 1) * perPage;
     };
