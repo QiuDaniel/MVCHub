@@ -36,7 +36,7 @@
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
     if ([Login isLogin]) {
-        [self setupTabViewController];
+        [self setupTabViewControllerFormLoginType:LoginTypeFromCache];
     } else {
         [self setupLoginViewController];
     }
@@ -81,8 +81,8 @@
     [self.window setRootViewController:[[BaseNavigationController alloc] initWithRootViewController:loginVC]];
 }
 
-- (void)setupTabViewController {
-    RootTabViewController *rootVC = [[RootTabViewController alloc] init];
+- (void)setupTabViewControllerFormLoginType:(LoginType)loginType {
+    RootTabViewController *rootVC = [[RootTabViewController alloc] initWithLoginType:loginType];
     rootVC.tabBar.translucent = YES;
     
     [self.window setRootViewController:rootVC];

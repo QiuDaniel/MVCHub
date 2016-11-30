@@ -160,7 +160,7 @@
                 SSKeychain.rawLogin = authenticatedClient.user.rawLogin;
                 SSKeychain.password = __weakSelf.myLogin.password;
                 SSKeychain.accessToken = authenticatedClient.token;
-                [MVCSharedAppDelegate setupTabViewController];
+                [MVCSharedAppDelegate setupTabViewControllerFormLoginType:LoginTypeFromLoginVC];
             }else {
                 if ([error.domain isEqual:OCTClientErrorDomain] && error.code == OCTClientErrorAuthenticationFailed) {
                     [NSObject showStatusBarErrorStr:@"Incorrect username or password"];

@@ -9,5 +9,6 @@
 #import "RDVTabBarController.h"
 
 @interface RootTabViewController : RDVTabBarController<RDVTabBarControllerDelegate>
+-(instancetype)initWithLoginType:(LoginType)loginType;
 
 @end

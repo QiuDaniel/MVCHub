@@ -22,14 +22,27 @@ static NSString *const kLaunchColor = @"0x2f434f";
 @interface RootTabViewController ()
 
 @property (nonatomic, strong) CBZSplashView *splashView;
+@property (nonatomic, assign) LoginType type;
 
 @end
 
 @implementation RootTabViewController
 
+#pragma mark - Init
+-(instancetype)initWithLoginType:(LoginType)loginType {
+    self = [super init];
+    if (self) {
+        self.type = loginType;
+    }
+    return self;
+}
+
+#pragma mark - LifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addSubview:self.splashView];
+    if (self.type == LoginTypeFromCache) {
+        [self.view addSubview:self.splashView];
+    }
     [self setupViewContrllers];
 }
 
