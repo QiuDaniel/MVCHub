@@ -16,7 +16,6 @@
 @property (nonatomic, strong) UITableView *starredTableView;
 @property (nonatomic, strong) NSMutableArray *reposArr, *repositories;
 
-@property (nonatomic, strong) Repositories *repos;
 @property (nonatomic, strong) OCTUser *user;
 
 @property (nonatomic, assign) NSUInteger page;
@@ -46,7 +45,8 @@ static const NSUInteger PerPage = 20;
     self.title = @"Starred Repos";
     [self.view addSubview:self.starredTableView];
     self.reposArr = [self dataSourceWithRepositories:[self fetchLocalData]];
-    [self.starredTableView.mj_header beginRefreshing];
+    //[self.starredTableView.mj_header beginRefreshing];
+    [self loadNewData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -136,19 +136,30 @@ static const NSUInteger PerPage = 20;
 #pragma mark - API Request
 - (void)loadNewData {
     self.page = 1;
+    MBProgressHUD *progressHUD = nil;
+    if (![self.starredTableView.mj_header isRefreshing]) {
+        progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        progressHUD.labelText = kMBProgressHUD_Lable_Text;
+    }
     @weakify(self)
     [[MVCHubAPIManager sharedManager] requestStarredRepositoriesForUser:self.user page:self.page perPage:PerPage andBlock:^(NSArray *data, NSError *error) {
        @strongify(self)
-        [self.starredTableView.mj_header endRefreshing];
-        if (data) {
-            for (int i = 0; i < data.count; i++) {
-                if ([self.repositories containsObject:data[i]]) {
-                    [self.repositories addObject:data[i]];
-                }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (progressHUD) {
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
             }
-            self.reposArr = [self dataSourceWithRepositories:self.repositories];
-            [self.starredTableView reloadData];
-        }
+            [self.starredTableView.mj_header endRefreshing];
+            if (data) {
+                for (int i = 0; i < data.count; i++) {
+                    if (![self.repositories containsObject:data[i]]) {
+                        [self.repositories addObject:data[i]];
+                    }
+                }
+                self.reposArr = [self dataSourceWithRepositories:self.repositories];
+                [self.starredTableView reloadData];
+            }
+
+        });
     }];
 }
 
@@ -160,7 +171,7 @@ static const NSUInteger PerPage = 20;
         [self.starredTableView.mj_footer endRefreshing];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (data.count > 0) {
-                [self.repositories addObject:[data copy]];
+                [self.repositories addObjectsFromArray:[data copy]];
                 self.reposArr = [self dataSourceWithRepositories:self.repositories];
             } else {
                 [NSObject showAllTextDialog:@"No more Repositories" xOffset:0.0 yOffset:200.0];
