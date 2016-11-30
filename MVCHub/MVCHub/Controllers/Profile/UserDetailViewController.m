@@ -11,6 +11,7 @@
 #import "UserDetail.h"
 #import "SDWebImagePrefetcher.h"
 #import "PublicActivityViewController.h"
+#import "StarredReposViewController.h"
 
 
 @interface UserDetailViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -100,9 +101,10 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
             NSDictionary *params = @{
-                                     @"entryPoint":@(1),
                                      @"user":self.user
                                      };
+            StarredReposViewController *starredReposVC = [[StarredReposViewController alloc] initWithParams:params];
+            [self.navigationController pushViewController:starredReposVC animated:YES];
             
         } else if (indexPath.row == 2) {
             NSDictionary *params = @{

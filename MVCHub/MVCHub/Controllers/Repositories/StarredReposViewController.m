@@ -19,9 +19,12 @@
 @property (nonatomic, strong) Repositories *repos;
 @property (nonatomic, strong) OCTUser *user;
 
+@property (nonatomic, assign) NSUInteger page;
+
 @end
 
 static NSString *const StarredReposTableCell = @"StarredReposTableCell";
+static const NSUInteger PerPage = 20;
 
 @implementation StarredReposViewController
 
@@ -41,6 +44,9 @@ static NSString *const StarredReposTableCell = @"StarredReposTableCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Starred Repos";
+    [self.view addSubview:self.starredTableView];
+    self.reposArr = [self dataSourceWithRepositories:[self fetchLocalData]];
+    [self.starredTableView.mj_header beginRefreshing];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -119,6 +125,50 @@ static NSString *const StarredReposTableCell = @"StarredReposTableCell";
     return mutableArr;
 }
 
+- (NSArray *)fetchLocalData {
+    NSArray *repos = nil;
+    if ([self.user.objectID isEqualToString:[OCTUser mvc_currentUserId]]) {
+        repos = [OCTRepository mvc_fetchUserStarredRepositoriesWithPage:1 perPage:PerPage];
+    }
+    return repos;
+}
+
+#pragma mark - API Request
+- (void)loadNewData {
+    self.page = 1;
+    @weakify(self)
+    [[MVCHubAPIManager sharedManager] requestStarredRepositoriesForUser:self.user page:self.page perPage:PerPage andBlock:^(NSArray *data, NSError *error) {
+       @strongify(self)
+        [self.starredTableView.mj_header endRefreshing];
+        if (data) {
+            for (int i = 0; i < data.count; i++) {
+                if ([self.repositories containsObject:data[i]]) {
+                    [self.repositories addObject:data[i]];
+                }
+            }
+            self.reposArr = [self dataSourceWithRepositories:self.repositories];
+            [self.starredTableView reloadData];
+        }
+    }];
+}
+
+- (void)loadMoreData {
+    self.page++;
+    @weakify(self)
+    [[MVCHubAPIManager sharedManager] requestStarredRepositoriesForUser:self.user page:self.page perPage:PerPage andBlock:^(NSArray *data, NSError *error) {
+        @strongify(self)
+        [self.starredTableView.mj_footer endRefreshing];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (data.count > 0) {
+                [self.repositories addObject:[data copy]];
+                self.reposArr = [self dataSourceWithRepositories:self.repositories];
+            } else {
+                [NSObject showAllTextDialog:@"No more Repositories" xOffset:0.0 yOffset:200.0];
+            }
+            [self.starredTableView reloadData];
+        });
+    }];
+}
 
 #pragma mark - Getter
 
@@ -128,6 +178,9 @@ static NSString *const StarredReposTableCell = @"StarredReposTableCell";
             UITableView *tableView = [[UITableView alloc] initWithFrame:kScreen_Bounds style:UITableViewStylePlain];
             tableView.delegate = self;
             tableView.dataSource = self;
+            [tableView registerClass:[ReposTableViewCell class] forCellReuseIdentifier:StarredReposTableCell];
+            tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+            tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
             tableView;
         });
     }

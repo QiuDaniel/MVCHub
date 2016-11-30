@@ -28,10 +28,10 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        if ([Login curLoginUser].avatarURL) { //预加载头像
+        if ([OCTUser mvc_currentUser].avatarURL) { //预加载头像
             SDWebImagePrefetcher *imagePrefetcher = [SDWebImagePrefetcher sharedImagePrefetcher];
             imagePrefetcher.options = SDWebImageRefreshCached;
-            [imagePrefetcher prefetchURLs:@[[Login curLoginUser].avatarURL ?: [NSNull null] ]];
+            [imagePrefetcher prefetchURLs:@[[OCTUser mvc_currentUser].avatarURL ?: [NSNull null] ]];
         }
     }
     return self;
@@ -58,7 +58,7 @@
     [self.userTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    self.headerView = [[ProfileAvatarHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height / 2) user:[Login curLoginUser]];
+    self.headerView = [[ProfileAvatarHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height / 2) user:[OCTUser mvc_currentUser]];
     self.headerView.navgationController = self.navigationController;
     self.userTableView.tableHeaderView = self.headerView;
 }

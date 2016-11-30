@@ -291,6 +291,25 @@
     }];
 }
 
+#pragma mark - Specified User's StarredRepositores
+- (void)requestStarredRepositoriesForUser:(OCTUser *)user page:(NSInteger)page perPage:(NSInteger)perPage andBlock:(void(^)(NSArray *data, NSError *error))block {
+    NSInteger (^offsetForPage)(NSInteger) = ^(NSInteger page) {
+        return (page - 1) * perPage;
+    };
+    
+    [[[[[self.client fetchStarredRepositoriesForUser:user offset:offsetForPage(page) perPage:perPage] take:perPage] collect] doNext:^(NSArray *repositories) {
+        if ([user.objectID isEqualToString:[OCTUser mvc_currentUserId]]) {
+            for (OCTRepository *repo in repositories) {
+                repo.starredStatus = OCTRepositoryStarredStatusYES;
+            }
+        }
+    }] subscribeNext:^(NSArray *repositories) {
+        block(repositories, nil);
+    } error:^(NSError *error) {
+        block(nil, error);
+    }];
+}
+
 #pragma mark - TrendingRepositories
 - (void)requestTrendingRepositoriesSince:(NSString *)since language:(NSString *)language andBlock:(void(^)(id data, NSError *error))block {
     since = since ?:@"";

@@ -18,10 +18,10 @@
         id (^map)(NSString *) = ^(NSString *value) {
             return (value.length > 0 && ![value isEqualToString:@"(null)"]) ? value : kEmptyPlaceHolder;
         };
-        self.company = map([Login curLoginUser].company);
-        self.location = map([Login curLoginUser].location);
-        self.email = map([Login curLoginUser].email);
-        self.blog = map([Login curLoginUser].blog);
+        self.company = map([OCTUser mvc_currentUser].company);
+        self.location = map([OCTUser mvc_currentUser].location);
+        self.email = map([OCTUser mvc_currentUser].email);
+        self.blog = map([OCTUser mvc_currentUser].blog);
     }
     return self;
 }

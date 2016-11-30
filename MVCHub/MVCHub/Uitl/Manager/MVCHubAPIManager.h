@@ -75,6 +75,9 @@
 #pragma mark - Current User's StarredRepositories
 - (void)requestUserStarredRepositoriesAndBlock:(void(^)(id data, NSError *error))block;
 
+#pragma mark - Specified User's StarredRepositores
+- (void)requestStarredRepositoriesForUser:(OCTUser *)user page:(NSInteger)page perPage:(NSInteger)perPage andBlock:(void(^)(NSArray *data, NSError *error))block;
+
 #pragma mark - TrendingRepositories
 - (void)requestTrendingRepositoriesSince:(NSString *)since language:(NSString *)language andBlock:(void(^)(id data, NSError *error))block;
 
