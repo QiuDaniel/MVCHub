@@ -18,7 +18,6 @@
 
 @interface News_RootViewController () <UITableViewDelegate, UITableViewDataSource, NewsAvatarButtonDelegate>
 
-@property (nonatomic, strong) UITableView *newsTableView;
 @property (nonatomic, strong) NSMutableArray *newsArr;
 
 @end

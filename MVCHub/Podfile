@@ -28,7 +28,7 @@ target 'MVCHub' do
   pod 'MLeaksFinder', '0.2.1'
   pod 'MJRefresh'
   pod 'TTTAttributedLabel'
- # pod 'AFNetworking'
+  # pod 'AFNetworking'
  pod 'MKNetworkKit', '~>0.87'
   pod 'OcticonsIOS', :git => 'https://github.com/jacksonh/OcticonsIOS.git', :commit => '4bd3b21'
  # pod 'LCFInfiniteScrollView', :git => 'https://github.com/leichunfeng/LCFInfiniteScrollView.git'

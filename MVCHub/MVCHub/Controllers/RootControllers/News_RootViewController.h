@@ -15,6 +15,7 @@ typedef NS_ENUM(NSUInteger, RefreshingType) {
 
 @interface News_RootViewController : BaseViewController
 
+@property (nonatomic, strong) UITableView *newsTableView;
 @property (nonatomic, strong) OCTUser *user;
 @property (nonatomic, strong) News *news;
 

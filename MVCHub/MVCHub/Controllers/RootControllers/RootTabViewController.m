@@ -15,8 +15,13 @@
 #import "BaseNavigationController.h"
 #import "RKSwipeBetweenViewControllers.h"
 #import "Login.h"
+#import "CBZSplashView.h"
+
+static NSString *const kLaunchColor = @"0x2f434f";
 
 @interface RootTabViewController ()
+
+@property (nonatomic, strong) CBZSplashView *splashView;
 
 @end
 
@@ -24,8 +29,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self.view addSubview:self.splashView];
     [self setupViewContrllers];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.splashView startAnimation];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
@@ -63,10 +76,7 @@
     for (RDVTabBarItem *item in [[self tabBar] items]) {
         item.titlePositionAdjustment = UIOffsetMake(0, 3);
         [item setBackgroundSelectedImage:backgroundImage withUnselectedImage:backgroundImage];
-//        UIImage *selectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_selected",
-//                                                      [tabBarItemImages objectAtIndex:index]]];
-//        UIImage *unselectedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@_normal",
-//                                                        [tabBarItemImages objectAtIndex:index]]];
+        
         UIImage *selectedImage = [UIImage octicon_imageWithIcon:tabBarItemImages[index] backgroundColor:[UIColor clearColor] iconColor:[UIColor colorWithHexString:@"0x4183C4"] iconScale:1 andSize:CGSizeMake(25, 25)];
         UIImage *unselectedImage = [UIImage octicon_imageWithIcon:tabBarItemImages[index] backgroundColor:[UIColor clearColor] iconColor:[UIColor lightGrayColor] iconScale:1 andSize:CGSizeMake(25, 25)];
         [item setFinishedSelectedImage:selectedImage withFinishedUnselectedImage:unselectedImage];
@@ -94,14 +104,16 @@
     }
     return YES;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Getter
+- (CBZSplashView *)splashView {
+    if (!_splashView) {
+        _splashView = ({
+            CBZSplashView *view = [CBZSplashView splashViewWithIcon:[UIImage imageNamed:@"icon4splash"] backgroundColor:[UIColor colorWithHexString:kLaunchColor]];
+            view.animationDuration = 1.4;
+            view;
+        });
+    }
+    return _splashView;
 }
-*/
-
 @end

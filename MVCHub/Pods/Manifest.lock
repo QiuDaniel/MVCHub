@@ -53,8 +53,6 @@ PODS:
     - FormatterKit/Resources
   - GPUImage (0.1.7)
   - IQKeyboardManager (3.2.0.3)
-  - LCFInfiniteScrollView (0.1):
-    - SDWebImage
   - Masonry (1.0.2)
   - MBProgressHUD (0.9.2)
   - MJRefresh (3.1.12)
@@ -114,7 +112,6 @@ DEPENDENCIES:
   - FormatterKit (~> 1.8.0)
   - GPUImage (~> 0.1.7)
   - IQKeyboardManager (~> 3.2.0.3)
-  - LCFInfiniteScrollView (from `https://github.com/leichunfeng/LCFInfiniteScrollView.git`)
   - Masonry
   - MBProgressHUD (~> 0.9)
   - MJRefresh
@@ -137,16 +134,11 @@ DEPENDENCIES:
   - YYKit
 
 EXTERNAL SOURCES:
-  LCFInfiniteScrollView:
-    :git: https://github.com/leichunfeng/LCFInfiniteScrollView.git
   OcticonsIOS:
     :commit: 4bd3b21
     :git: https://github.com/jacksonh/OcticonsIOS.git
 
 CHECKOUT OPTIONS:
-  LCFInfiniteScrollView:
-    :commit: 44c10a272c021f2408a3f3a3b7c41356a91df7fd
-    :git: https://github.com/leichunfeng/LCFInfiniteScrollView.git
   OcticonsIOS:
     :commit: 4bd3b21
     :git: https://github.com/jacksonh/OcticonsIOS.git
@@ -161,7 +153,6 @@ SPEC CHECKSUMS:
   FormatterKit: 11ad17b983200629246a5a466f6f1bfa2df823cb
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
   IQKeyboardManager: 7b071d1284b47b1c0c19891a042c2c65f118fa85
-  LCFInfiniteScrollView: 6552dc73dd573ecd54d8e151e3a1a742722723f7
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
@@ -184,6 +175,6 @@ SPEC CHECKSUMS:
   WebViewJavascriptBridge: e7b6669bebfc4f151daa0fdec3c8c24c8dc3a24e
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: a8af570b86069e2019d23397f293ac48de89680e
+PODFILE CHECKSUM: c740dbc9fcff03adfa0a9cf448c44538310ea921
 
 COCOAPODS: 1.0.1

@@ -124,6 +124,11 @@
 		1841B5051DB9F79000EEA472 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1841B5041DB9F79000EEA472 /* NewsTableViewCell.m */; };
 		1864601B1DCB7664009567BA /* RepoDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 1864601A1DCB7664009567BA /* RepoDetail.m */; };
 		18960DF21DED2A0B005D0D06 /* PublicActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18960DF11DED2A0B005D0D06 /* PublicActivityViewController.m */; };
+		18960E241DEDB461005D0D06 /* CBZRasterSplashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18960E1F1DEDB461005D0D06 /* CBZRasterSplashView.m */; };
+		18960E251DEDB461005D0D06 /* CBZSplashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18960E211DEDB461005D0D06 /* CBZSplashView.m */; };
+		18960E261DEDB461005D0D06 /* CBZVectorSplashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18960E231DEDB461005D0D06 /* CBZVectorSplashView.m */; };
+		18960E361DEE5B0E005D0D06 /* StarredReposViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18960E351DEE5B0E005D0D06 /* StarredReposViewController.m */; };
+		18960E381DEE5ED6005D0D06 /* icon4splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 18960E371DEE5ED6005D0D06 /* icon4splash.png */; };
 		18BEBC881DB3C8F900A21CE4 /* ReactiveCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182091251DB202C7008BB594 /* ReactiveCocoa.framework */; };
 		18BEBC891DB3C8F900A21CE4 /* ReactiveCocoa.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 182091251DB202C7008BB594 /* ReactiveCocoa.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		18BEBC951DB3C90200A21CE4 /* Mantle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182091161DB202BF008BB594 /* Mantle.framework */; };
@@ -616,6 +621,15 @@
 		1864601A1DCB7664009567BA /* RepoDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepoDetail.m; sourceTree = "<group>"; };
 		18960DF01DED2A0A005D0D06 /* PublicActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicActivityViewController.h; sourceTree = "<group>"; };
 		18960DF11DED2A0B005D0D06 /* PublicActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicActivityViewController.m; sourceTree = "<group>"; };
+		18960E1E1DEDB461005D0D06 /* CBZRasterSplashView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBZRasterSplashView.h; sourceTree = "<group>"; };
+		18960E1F1DEDB461005D0D06 /* CBZRasterSplashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBZRasterSplashView.m; sourceTree = "<group>"; };
+		18960E201DEDB461005D0D06 /* CBZSplashView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBZSplashView.h; sourceTree = "<group>"; };
+		18960E211DEDB461005D0D06 /* CBZSplashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBZSplashView.m; sourceTree = "<group>"; };
+		18960E221DEDB461005D0D06 /* CBZVectorSplashView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBZVectorSplashView.h; sourceTree = "<group>"; };
+		18960E231DEDB461005D0D06 /* CBZVectorSplashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBZVectorSplashView.m; sourceTree = "<group>"; };
+		18960E341DEE5B0E005D0D06 /* StarredReposViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarredReposViewController.h; sourceTree = "<group>"; };
+		18960E351DEE5B0E005D0D06 /* StarredReposViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarredReposViewController.m; sourceTree = "<group>"; };
+		18960E371DEE5ED6005D0D06 /* icon4splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon4splash.png; sourceTree = "<group>"; };
 		18C3BE5B1DCE19C0008FE88E /* OCTRef+MVCUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OCTRef+MVCUtil.h"; sourceTree = "<group>"; };
 		18C3BE5C1DCE19C0008FE88E /* OCTRef+MVCUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OCTRef+MVCUtil.m"; sourceTree = "<group>"; };
 		18C3BE691DCE1ECA008FE88E /* SelectBranchOrTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectBranchOrTagViewController.h; sourceTree = "<group>"; };
@@ -860,6 +874,7 @@
 		180282DD1DB07883005BA674 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				18960E1D1DEDB461005D0D06 /* CBZSplashView */,
 				18D963A21DDEA7D900D00A85 /* AutoSlideScrollView */,
 				183636A21DD33DCF003FAF7C /* SMPageControl */,
 				1836369B1DD32B08003FAF7C /* RKSwipeBetweenViewControllers */,
@@ -926,6 +941,7 @@
 		180282E01DB078B5005BA674 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				18960E371DEE5ED6005D0D06 /* icon4splash.png */,
 				18D964001DE7C44200D00A85 /* mvchub_logo.png */,
 				18D964011DE7C44200D00A85 /* mvchub_logo@2x.png */,
 				18D964021DE7C44200D00A85 /* mvchub_logo@3x.png */,
@@ -1297,6 +1313,8 @@
 				18C3BE701DCE35EE008FE88E /* SourceEditorViewController.m */,
 				18D963AF1DDEF79500D00A85 /* PublicReposViewController.h */,
 				18D963B01DDEF79500D00A85 /* PublicReposViewController.m */,
+				18960E341DEE5B0E005D0D06 /* StarredReposViewController.h */,
+				18960E351DEE5B0E005D0D06 /* StarredReposViewController.m */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -1338,6 +1356,19 @@
 				1841B4F31DB75CD900EEA472 /* MVCFollowButton.m */,
 			);
 			path = Button;
+			sourceTree = "<group>";
+		};
+		18960E1D1DEDB461005D0D06 /* CBZSplashView */ = {
+			isa = PBXGroup;
+			children = (
+				18960E1E1DEDB461005D0D06 /* CBZRasterSplashView.h */,
+				18960E1F1DEDB461005D0D06 /* CBZRasterSplashView.m */,
+				18960E201DEDB461005D0D06 /* CBZSplashView.h */,
+				18960E211DEDB461005D0D06 /* CBZSplashView.m */,
+				18960E221DEDB461005D0D06 /* CBZVectorSplashView.h */,
+				18960E231DEDB461005D0D06 /* CBZVectorSplashView.m */,
+			);
+			path = CBZSplashView;
 			sourceTree = "<group>";
 		};
 		18D963A21DDEA7D900D00A85 /* AutoSlideScrollView */ = {
@@ -1682,6 +1713,7 @@
 				1802838D1DB12194005BA674 /* MJPhotoBrowser.bundle in Resources */,
 				18D963BD1DE2B5E500D00A85 /* Languages.json in Resources */,
 				18D963BC1DE2B5E500D00A85 /* Countries.json in Resources */,
+				18960E381DEE5ED6005D0D06 /* icon4splash.png in Resources */,
 				1810B19E1DC341A40029F25B /* more@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1820,6 +1852,7 @@
 				180283731DB0CE51005BA674 /* UITapImageView.m in Sources */,
 				180283471DB085C0005BA674 /* NSString+Common.m in Sources */,
 				1802838C1DB12194005BA674 /* MJPhoto.m in Sources */,
+				18960E251DEDB461005D0D06 /* CBZSplashView.m in Sources */,
 				180283531DB085C0005BA674 /* UISearchBar+Common.m in Sources */,
 				1864601B1DCB7664009567BA /* RepoDetail.m in Sources */,
 				18C811041DB4BBAA00123C41 /* UserList.m in Sources */,
@@ -1872,6 +1905,7 @@
 				183636A01DD32B09003FAF7C /* EasePageViewController.m in Sources */,
 				1810B1991DC320920029F25B /* RepoStatisticsTableViewCell.m in Sources */,
 				18D963D71DE432DA00D00A85 /* WebViewController.m in Sources */,
+				18960E361DEE5B0E005D0D06 /* StarredReposViewController.m in Sources */,
 				18C810FE1DB4949300123C41 /* UserListTableViewCell.m in Sources */,
 				1810B19C1DC331570029F25B /* RepoViewCodeTableViewCell.m in Sources */,
 				180283941DB12194005BA674 /* UIImageView+MJWebCache.m in Sources */,
@@ -1904,6 +1938,7 @@
 				180282FC1DB07D15005BA674 /* Profile_RootViewController.m in Sources */,
 				180283581DB085C0005BA674 /* UIViewController+BackButtonHandler.m in Sources */,
 				180282951DAFD2EA005BA674 /* AppDelegate.m in Sources */,
+				18960E241DEDB461005D0D06 /* CBZRasterSplashView.m in Sources */,
 				18D963D41DE41AB300D00A85 /* CountryAndLanguageViewController.m in Sources */,
 				18C3BE5D1DCE19C1008FE88E /* OCTRef+MVCUtil.m in Sources */,
 				1823DD3D1DC852030068AA9C /* OCTRepository+MVCPersistence.m in Sources */,
@@ -1914,6 +1949,7 @@
 				180283481DB085C0005BA674 /* NSTimer+Common.m in Sources */,
 				18960DF21DED2A0B005D0D06 /* PublicActivityViewController.m in Sources */,
 				1802835D1DB09CEE005BA674 /* Input_OnlyText_Cell.m in Sources */,
+				18960E261DEDB461005D0D06 /* CBZVectorSplashView.m in Sources */,
 				18D963A81DDEA7D900D00A85 /* NSTimer+Addition.m in Sources */,
 				18D9639E1DDDF9D000D00A85 /* ExploreBannersView.m in Sources */,
 				180282EB1DB07924005BA674 /* RDVTabBar.m in Sources */,

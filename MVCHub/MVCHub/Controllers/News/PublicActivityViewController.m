@@ -24,6 +24,7 @@
 #pragma mark - LifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.newsTableView.frame = kScreen_Bounds;
 }
 
 - (void)didReceiveMemoryWarning {
