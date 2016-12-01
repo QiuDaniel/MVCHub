@@ -110,6 +110,7 @@
 
 // MVCHub Repository
 #define kMVCHub_Owner_Login @"QiuDaniel"
+#define kMVCHub_Name @"MVCHub"
 
 //常用变量
 #define DebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])

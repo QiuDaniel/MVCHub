@@ -10,6 +10,7 @@
 #import "UserDetailViewController.h"
 #import "FeedbackViewController.h"
 #import "AboutHeaderView.h"
+#import "RepoDetailViewController.h"
 
 @interface AboutViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -68,7 +69,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 1) {
-        NSDictionary *params = @{};
+        NSDictionary *params = @{
+                                 @"repository":@{
+                                            @"ownerLogin":kMVCHub_Owner_Login,
+                                            @"name":kMVCHub_Name
+                                         },
+                                 @"referenceName":@"refs/heads/master"
+                                 };
+        RepoDetailViewController *repoDetailVC = [[RepoDetailViewController alloc] initWithParams:params];
+        [self.navigationController pushViewController:repoDetailVC animated:YES];
     } else if (indexPath.row == 2) {
         NSDictionary *params = @{
                                  @"user":@{
