@@ -68,6 +68,7 @@ static NSString *const TrendingTableViewCell = @"TrendingTableViewCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ReposTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TrendingTableViewCell forIndexPath:indexPath];
     Repositories *repos = self.reposArr[indexPath.row];
+    repos.options = ReposViewModelOptionsShowOwnerLogin;
     CGSize iconSize = cell.iconImageView.frame.size;
     if (repos.repository.isPrivate) {
         cell.iconImageView.image = [UIImage octicon_imageWithIcon:@"Lock"

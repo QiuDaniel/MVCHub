@@ -44,12 +44,13 @@
         }];
         
         self.avatarImage = [UIImage imageNamed:@"default-avatar"];
+        MVCWeakSelf
         [[SDWebImageManager sharedManager] downloadImageWithURL:_user.avatarURL
                                                         options:SDWebImageRefreshCached
                                                        progress:nil
                                                       completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
                                                           if (image && finished) {
-                                                              self.avatarImage = image;
+                                                              __weakSelf.avatarImage = image;
                                                           }
                                                       }];
         

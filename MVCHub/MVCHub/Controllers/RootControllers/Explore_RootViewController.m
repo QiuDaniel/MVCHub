@@ -98,19 +98,15 @@
 - (void)buttonClicked:(UIButton *)btn {
     NSInteger section = btn.tag - 100;
     if (section == 0) {
-        DebugLog(@"点击了第一个");
         TrendingReposViewController *trendingReposVC = [[TrendingReposViewController alloc] init];
         [self.navigationController pushViewController:trendingReposVC animated:YES];
     } else if (section  == 1) {
-        DebugLog(@"点击了第二个");
         PopularReposViewController *popularReposVC = [[PopularReposViewController alloc] init];
         [self.navigationController pushViewController:popularReposVC animated:YES];
 
     } else if (section == 2) {
         UserListViewController *userListVC = [[UserListViewController alloc] initWithUserListType:UserListModelTypePopularUsers];
         [self.navigationController pushViewController:userListVC animated:YES];
-        DebugLog(@"点击了第三个");
-
     }
 }
 

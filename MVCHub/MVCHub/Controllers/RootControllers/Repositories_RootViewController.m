@@ -112,8 +112,10 @@ static NSString *const ReposTableCell = @"ReposTableCell";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ReposTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ReposTableCell forIndexPath:indexPath];
-//    Repositories *repos = [[Repositories alloc] initWithRepository:self.reposArr[indexPath.section][indexPath.row]];
     Repositories *repos = self.reposArr[indexPath.section][indexPath.row];
+    if (self.curIndex == Repositories_RootViewControllerTypeStarred) {
+        repos.options = ReposViewModelOptionsShowOwnerLogin;
+    }
     CGSize iconSize = cell.iconImageView.frame.size;
     if (repos.repository.isPrivate) {
         cell.iconImageView.image = [UIImage octicon_imageWithIcon:@"Lock"

@@ -10,6 +10,5 @@
 
 @interface RepoDetailViewController : BaseViewController
 
-//- (instancetype)initWithParams:(NSDictionary *)params;
 
 @end

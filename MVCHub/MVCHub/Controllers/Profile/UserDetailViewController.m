@@ -27,7 +27,9 @@
     self = [super init];
     if (self) {
         self.user = user;
+        @weakify(self)
         [[MVCHubAPIManager sharedManager] requestUserInfoForUser:user andBlock:^(OCTUser *user, NSError *error) {
+            @strongify(self)
             SDWebImagePrefetcher *imagePrefetcher = [SDWebImagePrefetcher sharedImagePrefetcher];
             imagePrefetcher.options = SDWebImageRefreshCached;
             [imagePrefetcher prefetchURLs:@[user.avatarURL ?: [NSNull null] ]];
@@ -53,7 +55,9 @@
         } else {
             self.user = [OCTUser mvc_currentUser];
         }
+        @weakify(self)
         [[MVCHubAPIManager sharedManager] requestUserInfoForUser:self.user andBlock:^(OCTUser *user, NSError *error) {
+            @strongify(self)
             SDWebImagePrefetcher *imagePrefetcher = [SDWebImagePrefetcher sharedImagePrefetcher];
             imagePrefetcher.options = SDWebImageRefreshCached;
             [imagePrefetcher prefetchURLs:@[user.avatarURL ?: [NSNull null] ]];
