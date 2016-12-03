@@ -12,6 +12,7 @@
 #define UPDATE_STATEMENT @"UPDATE Repository SET name = :name, owner_login = :owner_login, owner_avatar_url = :owner_avatar_url, description = :description, language = :language, pushed_at = :pushed_at, created_at = :created_at, updated_at = :updated_at, clone_url = :clone_url, ssh_url = :ssh_url, git_url = :git_url, html_url = :html_url, default_branch = :default_branch, private = :private, fork = :fork, watchers_count = :watchers_count, forks_count = :forks_count, stargazers_count = :stargazers_count, open_issues_count = :open_issues_count, subscribers_count = :subscribers_count WHERE id = :id;"
 #define UPDATE_STATEMENT_LIST @"UPDATE Repository SET name = :name, owner_login = :owner_login, owner_avatar_url = :owner_avatar_url, description = :description, language = :language, pushed_at = :pushed_at, created_at = :created_at, updated_at = :updated_at, clone_url = :clone_url, ssh_url = :ssh_url, git_url = :git_url, html_url = :html_url, default_branch = :default_branch, private = :private, fork = :fork, watchers_count = :watchers_count, forks_count = :forks_count, stargazers_count = :stargazers_count, open_issues_count = :open_issues_count WHERE id = :id;"
 
+
 @implementation OCTRepository (MVCPersistence)
 
 #pragma mark - Properties
@@ -67,13 +68,13 @@
 
 #pragma mark - Save Or Update Repositories
 + (BOOL)mvc_saveOrUpdateRepositories:(NSArray *)repositories {
-    if (repositories.count == 0) {
-        return YES;
-    }
+    if (repositories.count == 0) return YES;
     
     __block BOOL result = YES;
+    
     [[FMDatabaseQueue sharedInstance] inTransaction:^(FMDatabase *db, BOOL *rollback) {
         NSMutableArray *oldIDs = nil;
+        
         FMResultSet *rs = [db executeQuery:@"SELECT id FROM Repository;"];
         
         @onExit {
@@ -83,19 +84,18 @@
         if (rs == nil) {
             DebugLogLastError(db);
             result = NO;
-            return ;
+            return;
         }
         
         while ([rs next]) {
-            if (oldIDs == nil) {
-               oldIDs = [[NSMutableArray alloc] init];
-            }
+            if (oldIDs == nil) oldIDs = [[NSMutableArray alloc] init];
             [oldIDs mvc_addObject:[rs stringForColumnIndex:0]];
         }
         
         for (OCTRepository *repository in repositories) {
             NSString *sql = ![oldIDs containsObject:repository.objectID] ? INSERT_STATEMENT : UPDATE_STATEMENT_LIST;
-            BOOL success = [db executeQuery:sql withParameterDictionary:[repository toDBDictionary]];
+            
+            BOOL success = [db executeUpdate:sql withParameterDictionary:[repository toDBDictionary]];
             if (!success) {
                 DebugLogLastError(db);
                 result = NO;

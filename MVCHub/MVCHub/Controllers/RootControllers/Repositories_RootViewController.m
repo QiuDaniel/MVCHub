@@ -47,11 +47,10 @@ static NSString *const ReposTableCell = @"ReposTableCell";
     // Do any additional setup after loading the view.
     [self.view addSubview:self.reposTableView];
     [self.reposTableView registerClass:[ReposTableViewCell class] forCellReuseIdentifier:ReposTableCell];
-    if (_curIndex == Repositories_RootViewControllerTypeOwned) {
-        [self fetchRepositories];
-    } else if (_curIndex == Repositories_RootViewControllerTypeStarred) {
-        [self fetchStarredRepositories];
-    }
+    self.repositories = [self fetchLocalData];
+    self.sectionIndexTitles = [self sectionIndexTitlesWithRepositories:self.repositories];
+    self.reposArr = [self dataSourceWithRepositories:self.repositories sectionIndex:self.sectionIndexTitles];
+    [self fetchRemoteData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,7 +75,6 @@ static NSString *const ReposTableCell = @"ReposTableCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    Repositories *repos = [[Repositories alloc] initWithRepository:self.reposArr[indexPath.section][indexPath.row]];
     Repositories *repos = self.reposArr[indexPath.section][indexPath.row];
     return repos.height;
 }
@@ -89,8 +87,7 @@ static NSString *const ReposTableCell = @"ReposTableCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //DebugLog(@"reposArr======>%@",self.reposArr);
-    //return self.repositories.count;
+    
     return [(NSArray *)self.reposArr[section] count];
 }
 
@@ -172,11 +169,58 @@ static NSString *const ReposTableCell = @"ReposTableCell";
     return mutableArr;
 }
 
+- (NSArray *)fetchLocalData {
+    NSArray *repos = nil;
+    if (self.curIndex == Repositories_RootViewControllerTypeOwned) {
+        repos = [OCTRepository mvc_fetchUserRepositories];
+    } else if (self.curIndex == Repositories_RootViewControllerTypeStarred) {
+        repos = [OCTRepository mvc_fetchUserStarredRepositories];
+    }
+    return repos;
+}
+
+- (void)fetchRemoteData {
+    if (self.curIndex == Repositories_RootViewControllerTypeOwned) {
+        [self fetchRepositories];
+    } else if (self.curIndex == Repositories_RootViewControllerTypeStarred) {
+        [self fetchStarredRepositories];
+    }
+}
 #pragma mark - API Request
 - (void)fetchRepositories {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES].labelText = kMBProgressHUD_Lable_Text;
+    MBProgressHUD *progressHUD = nil;
+    if (self.repositories.count == 0) {
+        progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        progressHUD.labelText = kMBProgressHUD_Lable_Text;
+    }
     @weakify(self)
     [[MVCHubAPIManager sharedManager] requestForUserRepositoriesAndBlock:^(id data, NSError *error) {
+        @strongify(self)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            if (data) {
+                self.repositories = [data sortedArrayUsingComparator:^(OCTRepository *repo1, OCTRepository *repo2) {
+                    return [repo1.name caseInsensitiveCompare:repo2.name];
+                }];
+                //[OCTRepository mvc_matchStarredStatusForRepositories:self.repositories];
+                self.sectionIndexTitles = [self sectionIndexTitlesWithRepositories:self.repositories];
+                self.reposArr = [self dataSourceWithRepositories:self.repositories sectionIndex:self.sectionIndexTitles];
+                [self.reposTableView reloadData];
+            }
+
+        });
+    }];
+}
+
+- (void)fetchStarredRepositories {
+    
+    MBProgressHUD *progressHUD = nil;
+    if (self.repositories.count == 0) {
+        progressHUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        progressHUD.labelText = kMBProgressHUD_Lable_Text;
+    }
+    @weakify(self)
+    [[MVCHubAPIManager sharedManager] requestUserStarredRepositoriesAndBlock:^(id data, NSError *error) {
         @strongify(self)
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -189,30 +233,8 @@ static NSString *const ReposTableCell = @"ReposTableCell";
                 self.reposArr = [self dataSourceWithRepositories:self.repositories sectionIndex:self.sectionIndexTitles];
                 [self.reposTableView reloadData];
             }
-
         });
-    }];
-}
-
-- (void)fetchStarredRepositories {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES].labelText = kMBProgressHUD_Lable_Text;
-
-    @weakify(self)
-    [[MVCHubAPIManager sharedManager] requestUserStarredRepositoriesAndBlock:^(id data, NSError *error) {
-        @strongify(self)
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-        });
-        if (data) {
-            self.repositories = [data sortedArrayUsingComparator:^(OCTRepository *repo1, OCTRepository *repo2) {
-                return [repo1.name caseInsensitiveCompare:repo2.name];
-            }];
-            [OCTRepository mvc_matchStarredStatusForRepositories:self.repositories];
-            self.sectionIndexTitles = [self sectionIndexTitlesWithRepositories:self.repositories];
-            self.reposArr = [self dataSourceWithRepositories:self.repositories sectionIndex:self.sectionIndexTitles];
-            [self.reposTableView reloadData];
-        }
-
+        
     }];
 }
 
@@ -226,7 +248,10 @@ static NSString *const ReposTableCell = @"ReposTableCell";
             tableView.sectionIndexColor = [UIColor darkGrayColor];
             tableView.sectionIndexBackgroundColor = [UIColor clearColor];
             tableView.sectionIndexMinimumDisplayRowCount = 20;
-            
+            {
+                UIEdgeInsets inserts = UIEdgeInsetsMake(0, 0, 49 + 64, 0);
+                tableView.contentInset = inserts;
+            }
             tableView;
         });
     }
