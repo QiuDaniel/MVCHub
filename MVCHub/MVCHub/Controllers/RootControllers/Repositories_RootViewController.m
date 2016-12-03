@@ -198,11 +198,14 @@ static NSString *const ReposTableCell = @"ReposTableCell";
         @strongify(self)
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+            if ([self.reposTableView.mj_header isRefreshing]) {
+                [self.reposTableView.mj_header endRefreshing];
+            }
             if (data) {
                 self.repositories = [data sortedArrayUsingComparator:^(OCTRepository *repo1, OCTRepository *repo2) {
                     return [repo1.name caseInsensitiveCompare:repo2.name];
                 }];
-                //[OCTRepository mvc_matchStarredStatusForRepositories:self.repositories];
+                [OCTRepository mvc_matchStarredStatusForRepositories:self.repositories];
                 self.sectionIndexTitles = [self sectionIndexTitlesWithRepositories:self.repositories];
                 self.reposArr = [self dataSourceWithRepositories:self.repositories sectionIndex:self.sectionIndexTitles];
                 [self.reposTableView reloadData];
@@ -224,6 +227,9 @@ static NSString *const ReposTableCell = @"ReposTableCell";
         @strongify(self)
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUDForView:self.view animated:YES];
+            if ([self.reposTableView.mj_header isRefreshing]) {
+                [self.reposTableView.mj_header endRefreshing];
+            }
             if (data) {
                 self.repositories = [data sortedArrayUsingComparator:^(OCTRepository *repo1, OCTRepository *repo2) {
                     return [repo1.name caseInsensitiveCompare:repo2.name];
@@ -252,6 +258,7 @@ static NSString *const ReposTableCell = @"ReposTableCell";
                 UIEdgeInsets inserts = UIEdgeInsetsMake(0, 0, 49 + 64, 0);
                 tableView.contentInset = inserts;
             }
+            tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(fetchRemoteData)];
             tableView;
         });
     }
