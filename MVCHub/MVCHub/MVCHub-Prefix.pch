@@ -90,10 +90,10 @@
 #define kPassword @"Password"
 #define kAccessToken @"AccessToken"
 
-/// Client Info 借用MRCReactiveCocoa的
+/// Client Info 
 
-#define kGitHub_CLIENT_ID     @"ef5834ea86b53233dc41"
-#define kGitHub_CLIENT_SECRET @"6eea860464609635567d001b1744a052f8568a99"
+#define kGitHub_CLIENT_ID     @"13eb9cd902fa030c9abf"
+#define kGitHub_CLIENT_SECRET @"3557150b5183dcfd92fe92bc86e5dd7c5fe72227"
 
 //Repository
 
