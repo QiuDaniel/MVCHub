@@ -20,6 +20,9 @@
 
 - (void)requestLoginWithUsername:(NSString *)username password:(NSString *)password oneTimePassword:(NSString *)oneTimePassword scopes:(OCTClientAuthorizationScopes)scopes andBlock:(void (^)(OCTClient *authenticatedClient, NSError *error))block;
 
+#pragma mark - OAuthLogin
+- (void)requestLoginWithCode:(NSString *)code andBlock:(void (^)(OCTClient *authenticatedClient, NSError *error))block;
+
 #pragma mark - Follower & Following
 /**
  Request to fetches the followers or following for the specified 'user'

@@ -38,6 +38,32 @@
     }];
 }
 
+#pragma mark - OAuthLogin
+- (void)requestLoginWithCode:(NSString *)code andBlock:(void (^)(OCTClient *authenticatedClient, NSError *error))block {
+    OCTClient *client = [[OCTClient alloc] initWithServer:[OCTServer dotComServer]];
+    [OCTClient setClientID:kGitHub_CLIENT_ID clientSecret:kGitHub_CLIENT_SECRET];
+    [[[[[client exchangeAccessTokenWithCode:code] doNext:^(OCTAccessToken *accessToken) {
+        [client setValue:accessToken.token forKey:@"token"];
+    }] flattenMap:^(id value) {
+        return [[client fetchUserInfo] doNext:^(OCTUser *user) {
+            NSMutableDictionary *mutableDic = [[NSMutableDictionary alloc] init];
+            [mutableDic addEntriesFromDictionary:user.dictionaryValue];
+            
+            if (user.rawLogin.length == 0) {
+                mutableDic[@keypath(user.rawLogin)] = user.login;
+            }
+            
+            user = [OCTUser modelWithDictionary:mutableDic error:nil];
+            [client setValue:user forKey:@"user"];
+        }];
+    }] mapReplace:client] subscribeNext:^(OCTClient *client) {
+        self.client = client;
+        block(client, nil);
+    } error:^(NSError *error) {
+        block(nil, error);
+    }];
+}
+
 #pragma mark - Follower & Following
 - (void)requestUserListWithUser:(OCTUser *)user userListType:(UserListModelType)type location:(NSString *)location language:(NSString *)language page:(NSUInteger)page perPage:(NSUInteger)perPage andBlock:(void (^)(NSArray *data, NSError *error))block {
     

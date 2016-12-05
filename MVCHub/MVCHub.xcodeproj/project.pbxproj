@@ -79,6 +79,8 @@
 		180283B51DB135BF005BA674 /* assets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 180283B41DB135BF005BA674 /* assets.bundle */; };
 		180283B71DB13ADB005BA674 /* text_clear_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 180283B61DB13ADB005BA674 /* text_clear_btn@2x.png */; };
 		18030EE01DCD332A00A63C67 /* GitTreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18030EDF1DCD332A00A63C67 /* GitTreeViewController.m */; };
+		180AF1311DF3CA7400EA2616 /* OAuthLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 180AF1301DF3CA7400EA2616 /* OAuthLoginViewController.m */; };
+		180AF13F1DF3E38200EA2616 /* OAuthLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 180AF13E1DF3E38200EA2616 /* OAuthLogin.m */; };
 		1810B1881DBD21DD0029F25B /* RepoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810B1871DBD21DD0029F25B /* RepoDetailViewController.m */; };
 		1810B1961DBE6F280029F25B /* RepoReadmeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810B1951DBE6F280029F25B /* RepoReadmeTableViewCell.m */; };
 		1810B1991DC320920029F25B /* RepoStatisticsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1810B1981DC320920029F25B /* RepoStatisticsTableViewCell.m */; };
@@ -540,6 +542,10 @@
 		180283B61DB13ADB005BA674 /* text_clear_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "text_clear_btn@2x.png"; sourceTree = "<group>"; };
 		18030EDE1DCD332A00A63C67 /* GitTreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GitTreeViewController.h; sourceTree = "<group>"; };
 		18030EDF1DCD332A00A63C67 /* GitTreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GitTreeViewController.m; sourceTree = "<group>"; };
+		180AF12F1DF3CA7400EA2616 /* OAuthLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthLoginViewController.h; sourceTree = "<group>"; };
+		180AF1301DF3CA7400EA2616 /* OAuthLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthLoginViewController.m; sourceTree = "<group>"; };
+		180AF13D1DF3E38200EA2616 /* OAuthLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthLogin.h; sourceTree = "<group>"; };
+		180AF13E1DF3E38200EA2616 /* OAuthLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuthLogin.m; sourceTree = "<group>"; };
 		1810B1861DBD21DD0029F25B /* RepoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepoDetailViewController.h; sourceTree = "<group>"; };
 		1810B1871DBD21DD0029F25B /* RepoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepoDetailViewController.m; sourceTree = "<group>"; };
 		1810B1941DBE6F280029F25B /* RepoReadmeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepoReadmeTableViewCell.h; sourceTree = "<group>"; };
@@ -850,6 +856,8 @@
 			children = (
 				180282E11DB078CC005BA674 /* LoginViewController.h */,
 				180282E21DB078CC005BA674 /* LoginViewController.m */,
+				180AF12F1DF3CA7400EA2616 /* OAuthLoginViewController.h */,
+				180AF1301DF3CA7400EA2616 /* OAuthLoginViewController.m */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -934,6 +942,8 @@
 				18D9638C1DDDCC0A00D00A85 /* Explore.m */,
 				18D9639F1DDDFA6300D00A85 /* Showcase.h */,
 				18D963A01DDDFA6300D00A85 /* Showcase.m */,
+				180AF13D1DF3E38200EA2616 /* OAuthLogin.h */,
+				180AF13E1DF3E38200EA2616 /* OAuthLogin.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1872,6 +1882,7 @@
 				18D963E81DE6AA6D00D00A85 /* FeedbackViewController.m in Sources */,
 				18277E311DBBF43600388578 /* OCTEvent+MVCPersistence.m in Sources */,
 				18C3BE711DCE35EE008FE88E /* SourceEditorViewController.m in Sources */,
+				180AF1311DF3CA7400EA2616 /* OAuthLoginViewController.m in Sources */,
 				180282ED1DB07924005BA674 /* RDVTabBarItem.m in Sources */,
 				18D963D11DE40F5900D00A85 /* SegmentedControlController.m in Sources */,
 				18C811011DB49C6200123C41 /* UserListViewController.m in Sources */,
@@ -1961,6 +1972,7 @@
 				180282921DAFD2E9005BA674 /* main.m in Sources */,
 				183636AB1DDC0765003FAF7C /* ExploreCollectionViewCell.m in Sources */,
 				180283501DB085C0005BA674 /* UIDevice+Info.m in Sources */,
+				180AF13F1DF3E38200EA2616 /* OAuthLogin.m in Sources */,
 				183636A51DD33DCF003FAF7C /* SMPageControl.m in Sources */,
 				180283451DB085C0005BA674 /* NSObject+ObjectMap.m in Sources */,
 				183636A11DD32B09003FAF7C /* RKSwipeBetweenViewControllers.m in Sources */,

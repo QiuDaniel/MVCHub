@@ -12,6 +12,7 @@
 #import "Login.h"
 #import "TGRImageViewController.h"
 #import "TGRImageZoomAnimationController.h"
+#import "OAuthLoginViewController.h"
 
 @interface LoginViewController () <UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate>
 
@@ -187,7 +188,28 @@
 }
 
 - (void)goBrowserVC:(UIButton *)btn {
-    
+    OAuthLoginViewController *oAuthLoginVC = [[OAuthLoginViewController alloc] init];
+    @weakify(self)
+    oAuthLoginVC.callback = ^(NSString *code) {
+        @strongify(self)
+        [self.navigationController popViewControllerAnimated:YES];
+        [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES].
+        labelText = @"Logging in...";
+        [[MVCHubAPIManager sharedManager] requestLoginWithCode:code andBlock:^(OCTClient *authenticatedClient, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+                if (authenticatedClient) {
+                    [Login logIn:authenticatedClient];
+                    SSKeychain.rawLogin = authenticatedClient.user.rawLogin;
+                    SSKeychain.password = self.myLogin.password;
+                    SSKeychain.accessToken = authenticatedClient.token;
+                    [MVCSharedAppDelegate setupTabViewControllerFormLoginType:LoginTypeFromLoginVC];
+                }
+
+            });
+        }];
+    };
+    [self.navigationController pushViewController:oAuthLoginVC animated:YES];
 }
 
 #pragma mark - TableView Header & Footer

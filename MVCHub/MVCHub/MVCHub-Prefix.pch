@@ -90,6 +90,10 @@
 #define kPassword @"Password"
 #define kAccessToken @"AccessToken"
 
+// URL Scheme
+
+#define kMVC_URL_SCHEME @"mvchub"
+
 /// Client Info 
 
 #define kGitHub_CLIENT_ID     @"13eb9cd902fa030c9abf"
