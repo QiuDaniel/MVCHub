@@ -193,19 +193,22 @@
     NSUInteger page = 1;
     MVCWeakSelf
     [[MVCHubAPIManager sharedManager] requestNewsForUser:self.user newsType:self.news.type page:page perPage:NewsPerPage andBlock:^(NSArray *data, NSError *error) {
-        [__weakSelf.newsTableView.mj_header endRefreshing];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [__weakSelf isLoading:RefreshingTypeHeader];
-        });
-        if (data) {
-            for (int i = 0; i < data.count; i++) {
-                if (![__weakSelf.newsArr containsObject:data[i]]) {
-                    [__weakSelf.newsArr addObject:data[i]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [__weakSelf.newsTableView.mj_header endRefreshing];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [__weakSelf isLoading:RefreshingTypeHeader];
+                
+            });
+            if (data) {
+                int count = [[NSNumber numberWithUnsignedInteger:data.count] intValue];
+                for (int i = count - 1; i >= 0; i--) {
+                    if (![__weakSelf.newsArr containsObject:data[i]]) {
+                        [__weakSelf.newsArr insertObject:data[i] atIndex:0];
+                    }
                 }
+                [__weakSelf.newsTableView reloadData];
             }
-            [__weakSelf.newsTableView reloadData];
-        }
-        
+        });
     }];
 }
 
@@ -258,14 +261,5 @@
     }
     return _newsArr;
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
