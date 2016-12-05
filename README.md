@@ -1,6 +1,7 @@
 # MVCHub
 
 ![image](https://github.com/QiuDaniel/MVCHub/blob/master/screenshots/cathub_logo.png)
+
 MVCHub是GitHub的iOS移动客户端，使用了MVC的架构模式，同时使用了[ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)、[Mantle](https://github.com/MantleFramework/Mantle)、[octokit.objc](https://github.com/octokit/octokit.objc)、[Masonry](https://github.com/SnapKit/Masonry)等非常优秀的第三方框架.
 
 # Purpose
