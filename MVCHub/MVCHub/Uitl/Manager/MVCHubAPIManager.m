@@ -309,6 +309,7 @@
     }] doNext:^(NSArray *repositories) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [OCTRepository mvc_saveOrUpdateStarredStatusWithRepositories:repositories];
+            [OCTRepository mvc_saveOrUpdateRepositories:repositories];
         });
     } ] subscribeNext:^(NSArray *repositories) {
         block(repositories, nil);
