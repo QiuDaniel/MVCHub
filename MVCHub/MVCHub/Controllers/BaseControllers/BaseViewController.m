@@ -124,9 +124,6 @@
     }
 }
 
-//- (void)openRightMenu:(id)sender {
-//    [self.sideMenuViewController presentRightMenuViewController];
-//}
 
 + (UIViewController *)presentingVC{
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];

@@ -106,7 +106,7 @@
     // 0x2F434F
 //    [navigationBarAppearance setBackgroundImage:[UIImage imageWithColor:[ UIColor colorWithRed:(48 - 40) / 215.0 green:(67 - 40) / 215.0 blue:(78 - 40) / 215.0 alpha:1]] forBarMetrics:UIBarMetricsDefault];
     navigationBarAppearance.barTintColor = [UIColor colorWithHexString:@"0x2f434f"];
-    navigationBarAppearance.barStyle = UIBarStyleBlack;
+    [navigationBarAppearance setBarStyle:UIBarStyleBlack];
     [navigationBarAppearance setTintColor:[UIColor whiteColor]]; // 设置返回箭头的颜色
     NSDictionary *textAttributes = @{
                                      NSFontAttributeName:[UIFont boldSystemFontOfSize:kNavTitleFontSize],

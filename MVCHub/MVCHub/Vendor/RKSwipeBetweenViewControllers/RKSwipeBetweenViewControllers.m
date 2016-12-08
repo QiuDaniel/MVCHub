@@ -79,7 +79,7 @@ CGFloat X_OFFSET = 8.0; //%%% for some reason there's a little bit of a glitchy 
 
 //%%% color of the status bar
 -(UIStatusBarStyle)preferredStatusBarStyle {
-        return UIStatusBarStyleDefault;
+        return UIStatusBarStyleLightContent;
 }
 
 //%%% sets up the tabs using a loop.  You can take apart the loop to customize individual buttons, but remember to tag the buttons.  (button.tag=0 and the second button.tag=1, etc)

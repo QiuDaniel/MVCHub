@@ -22,10 +22,8 @@ typedef NS_ENUM(NSUInteger, TitleViewType) {
 - (instancetype)initWithParams:(NSDictionary *)params;
 - (void)tabbarItemClicked;
 - (void)logoutToLoginVC;
-//- (void)setupPopMenu;
 - (void)setupNavBtn;
 - (void)addImageBarButtonWithImage:(UIImage *)image button:(UIButton*)aBtn action:(SEL)action isRight:(BOOL)isR;
-//- (void)openRightMenu:(id)sender;
 
 + (UIViewController *)presentingVC;
 + (void)presentVC:(UIViewController *)viewController;

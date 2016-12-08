@@ -86,6 +86,10 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+/// 让选中的VC的StatusBarStyle生效
+- (UIViewController *)childViewControllerForStatusBarStyle {
+    return self.selectedViewController;
+}
 #pragma mark - Methods
 
 - (UIViewController *)selectedViewController {

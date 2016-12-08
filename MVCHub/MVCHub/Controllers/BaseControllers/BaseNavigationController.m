@@ -41,6 +41,10 @@
     }
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.topViewController.preferredStatusBarStyle;
+}
+
 /*
 #pragma mark - Navigation
 
